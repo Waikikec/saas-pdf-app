@@ -1,3 +1,4 @@
+import Navbar from '@/components/Navbar';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -23,6 +24,7 @@ export default function RootLayout({
           'min-h-screen font-sans antialiased grainy'
         )}
       >
+        <Navbar />
         {children}
       </body>
     </html>
