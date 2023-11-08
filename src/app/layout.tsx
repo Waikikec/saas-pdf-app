@@ -1,4 +1,4 @@
-import { joinClasses } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang='en' className='light'>
       <body
-        className={joinClasses(
+        className={cn(
           inter.className,
           'min-h-screen font-sans antialiased grainy'
         )}
