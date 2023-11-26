@@ -15,7 +15,8 @@ model User {
   id String @id @unique
   email String @unique
 
-  File File[] 
+  File File[]
+  Message Message[]
 
   stripeCustomerId String? @unique @map(name: "stripe_customer_id")
   stripeSubscriptionId String? @unique @map(name: "stripe_subscription_id")
@@ -38,10 +39,37 @@ model File {
 
   url String
   key String
+  messages Message[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   User User? @relation(fields: [userId], references: [id])
   userId String?
+
+  @@index([userId])
 }
+
+model Message {
+  id String @id @default(cuid())
+  text String @db.Text()
+
+  isUserMessage Boolean
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  //automatically created by Prisma formatting
+  User User? @relation(fields: [userId], references: [id])
+  userId String?
+
+  File File? @relation(fields: [fileId], references: [id])
+  fileId String?
+
+  @@index([userId])
+  @@index([fileId])
+}
+
+//NOTE: every time you made changes on Prisma schema
+// 1) to update cloud db, execute following command: npx prisma db push
+// 2) to update local typescript types, execute following command: npx prisma generate
